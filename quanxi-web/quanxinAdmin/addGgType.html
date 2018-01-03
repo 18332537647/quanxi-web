@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>添加规格型号</title>
+		<link href="css/plugins/layui/css/layui.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+		<link rel="stylesheet" href="css/dtreeck.css" />
+		<script src="js/dtreeck.js"></script>
+		<script src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+	</head>
+	<style>
+		#ggBox {
+			background-color: #fff;
+			padding: 0 30px 30px 30px;
+		}
+		
+		.formHeader {
+			margin: 20px 0 10px 0;
+		}
+		
+		body {
+			margin: 20px;
+		}
+		
+		[v-cloak] {
+			display: none;
+		}
+		
+		thead tr {
+			font-weight: bold;
+			background-color: #eee;
+		}
+	</style>
+
+	<body v-cloak>
+		<div class="form-inline formHeader">
+			<div class="form-group">
+				<input type="text" class="form-control" id="serchId" placeholder="请输入id进行搜索">
+			</div>
+			<button type="submit" class="btn btn-default">查找</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float:right;">添加</button>
+		</div>
+		<table class="table table-hover table-bordered" style="text-align: center;">
+			<thead>
+				<tr>
+
+					<td>名称</td>
+					<td>空间分类</td>
+					<td>类型</td>
+					<td>类型描述</td>
+					<td>单位</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+
+					<td>度数</td>
+					<td>酒空间</td>
+					<td>字符串</td>
+					<td>无</td>
+					<td>°</td>
+					<td>
+						<button type="button" class="btn btn-primary btn-xs">编辑</button>
+						<button type="button" class="btn btn-danger btn-xs">删除</button>
+					</td>
+				</tr>
+				<tr>
+
+					<td>生产日期</td>
+					<td>酒空间</td>
+					<td>日期-到日</td>
+					<td>无</td>
+					<td>2116-12-3</td>
+					<td>
+						<button type="button" class="btn btn-primary btn-xs">编辑</button>
+						<button type="button" class="btn btn-danger btn-xs">删除</button>
+					</td>
+				</tr>
+				<tr v-for="item in ggMsgLists">
+					<td>{{item.ggName}}</td>
+					<td>{{item.spaceType}}</td>
+					<td>{{item.ggType}}</td>
+					<td>{{item.ggTypeDesc}}</td>
+					<td>{{item.ggUnit}}</td>
+					<td>
+						<button type="button" class="btn btn-primary btn-xs">编辑</button>
+						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- 添加规格型号的弹窗 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document" style="width:80%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">添加规格型号</h4>
+					</div>
+					<div class="modal-body">
+						<div id="ggBox">
+
+							<form class="layui-form layui-form-pane" action="">
+								<div class="layui-form-item">
+
+									<div class="layui-inline">
+										<label class="layui-form-label">名称</label>
+										<div class="layui-input-inline">
+											<input type="text" name="ggName" autocomplete="off" class="layui-input" placeholder="请输入规格名称" v-model="ggName">
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-label">空间分类</label>
+										<div class="layui-input-inline">
+											<input type="text" id="menu_parent_name" name="spaceType" class="layui-input" v-model="spaceType" placeholder="请输入空间分类">
+											<div id="treediv" style="display: none;position:absolute;overflow:scroll;z-index:9;width: 190px;height:200px;  padding: 5px;background: #fff;color: #fff;border: 1px solid #cccccc">
+												<script language="JavaScript" type="text/JavaScript">
+													mydtree = new dTree('mydtree','imgmenu/','no','no'); mydtree.add(0, -1, "根目录", "javascript:setvalue('0','根目录')", "根目录", "_self", false); mydtree.add(37, 0, '酒空间', "javascript:setvalue('37','酒空间')", '酒空间', '_self', false); mydtree.add(40, 0, '法律空间', "javascript:setvalue('40','法律空间')", '法律空间', '_self', false); mydtree.add(44, 0, '信息空间', "javascript:setvalue('44','信息空间')", '信息空间', '_self', false); mydtree.add(47, 0, '中医空间', "javascript:setvalue('47','中医空间')", '中医空间', '_self', false); mydtree.add(39, 37, '白酒空间', "javascript:setvalue('39','白酒空间')", '白酒空间', '_self', false); mydtree.add(01, 39, '茅台', "javascript:setvalue('01','茅台')", '茅台', '_self', false); mydtree.add(02, 39, '五粮液', "javascript:setvalue('02','五粮液')", '五粮液', '_self', false); mydtree.add(03, 39, '二锅头', "javascript:setvalue('03','二锅头')", '二锅头', '_self', false); mydtree.add(86, 37, '红酒空间', "javascript:setvalue('86','红酒空间')", '红酒空间', '_self', false); mydtree.add(88, 37, '啤酒空间', "javascript:setvalue('88','啤酒空间')", '啤酒空间', '_self', false); mydtree.add(41, 40, '法律法规管理', "javascript:setvalue('41','法律法规管理')", '法律法规管理', '_self', false); mydtree.add(42, 40, '法律法规查看', "javascript:setvalue('42','法律法规查看')", '法律法规查看', '_self', false); mydtree.add(45, 44, '检查项目管理', "javascript:setvalue('45','检查项目管理')", '检查项目管理', '_self', false); mydtree.add(49, 44, '被监督单位管理', "javascript:setvalue('49','被监督单位管理')", '被监督单位管理', '_self', false); mydtree.add(62, 44, '单位大类别管理', "javascript:setvalue('62','单位大类别管理')", '单位大类别管理', '_self', false); mydtree.add(63, 44, '单位小类别管理', "javascript:setvalue('63','单位小类别管理')", '单位小类别管理', '_self', false); mydtree.add(64, 44, '检查类别管理', "javascript:setvalue('64','检查类别管理')", '检查类别管理', '_self', false); mydtree.add(65, 44, '检查小类管理', "javascript:setvalue('65','检查小类管理')", '检查小类管理', '_self', false); mydtree.add(48, 47, '中医按摩', "javascript:setvalue('48','中医按摩')", '中医按摩', '_self', false); mydtree.add(82, 47, '中医拔罐', "javascript:setvalue('82','中医拔罐')", '中医拔罐', '_self', false); mydtree.add(83, 47, '中医针灸', "javascript:setvalue('83','中医针灸')", '中医针灸', '_self', false); document.write(mydtree);
+												</script>
+											</div>
+											<script type="text/javascript">
+												//生成弹出层的代码
+												<!-- 弹出层-->
+												xOffset = 0; //向右偏移量
+												yOffset = 25; //向下偏移量
+												var toshow = "treediv"; //要显示的层的id
+												var target = "menu_parent_name"; //目标控件----也就是想要点击后弹出树形菜单的那个控件id
+												$("#" + target).click(function() {
+													$("#" + toshow)
+														.css("position", "absolute")
+														.css("left", $("#" + target).position().left + xOffset + "px")
+														.css("top", $("#" + target).position().top + yOffset + 12 + "px").show();
+												});
+
+												//判断鼠标在不在弹出层范围内
+												function checkIn(id) {
+													var yy = 20; //偏移量
+													var str = "";
+													var x = window.event.clientX;
+													var y = window.event.clientY;
+													var obj = $("#" + id)[0];
+													if(x > obj.offsetLeft && x < (obj.offsetLeft + obj.clientWidth) && y > (obj.offsetTop - yy) && y < (obj.offsetTop + obj.clientHeight)) {
+														return true;
+													} else {
+														return false;
+													}
+												}
+												//点击body关闭弹出层
+												/*$(document).click(function() {
+													var is = checkIn("treediv");
+													if(!is) {
+														$("#" + toshow).hide();
+													}
+												});*/
+												<!-- 弹出层-->
+												//生成弹出层的代码
+												//点击菜单树给文本框赋值------------------菜单树里加此方法
+												function setvalue(id, name) {
+													$("#menu_parent_name").val(name);
+													$("#menu_parent").val(id);
+													$("#treediv").hide();
+												}
+											</script>
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-label">排序</label>
+										<div class="layui-input-inline">
+											<input type="text" name="ggSort" autocomplete="off" class="layui-input" placeholder="请选择排序" v-model="ggSort">
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">选择类型</label>
+									<div class="layui-input-inline">
+										<select v-model="ggType" name="ggType">
+											<option value="0">请选择类型</option>
+											<option value="1">字符串</option>
+											<option value="2">数值</option>
+											<option value="3">时间-到日</option>
+											<option value="4">时间-到秒</option>
+											<option value="5">枚举值（主要是地区）</option>
+										</select>
+									</div>
+								</div>
+								<div class="layui-form-item layui-form-text">
+									<label class="layui-form-label">类型具体描述</label>
+									<div class="layui-input-block">
+										<textarea name="ggTypeDesc" placeholder="如类型为枚举值，请输入具体描述" class="layui-textarea" v-model="ggTypeDesc"></textarea>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">单位</label>
+									<div class="layui-input-block">
+										<input type="text" name="ggUnit" class="layui-input" placeholder="请输入规格单位（如：米，元，吨...）" v-model="ggUnit">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-label">创建时间</label>
+										<div class="layui-input-block">
+											<input type="text" name="creatDate" id="date" autocomplete="off" class="layui-input" placeholder="请输入创建时间" v-model="creatDate">
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-label">最后修改时间</label>
+										<div class="layui-input-block">
+											<input type="text" name="reviseDate" id="date1" autocomplete="off" class="layui-input" placeholder="请输入最后修改时间" v-model="reviseDate">
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-form-item layui-form-text">
+										<label class="layui-form-label">说明</label>
+										<div class="layui-input-block">
+											<textarea placeholder="如有额外特殊说明，请在此输入" name="description" class="layui-textarea" v-model="description"></textarea>
+										</div>
+									</div>
+								</div>
+								<!--<div class="layui-form-item">
+									<button class="layui-btn" lay-submit="" lay-filter="demo2">保存</button>
+								</div>-->
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" @click="add()">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/plugins/layui/layui.js "></script>
+		<script src="js/vue.js "></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			var vm = new Vue({
+				el: "body",
+				data: {
+					ggName: "",
+					spaceType: "",
+					ggSort: "",
+					ggTypeDesc: "",
+					ggUnit: "",
+					creatDate: "",
+					reviseDate: "",
+					description: "",
+					ggType: '字符串',
+					ggMsgLists: []
+
+				},
+				methods: {
+					add: function() {
+						this.ggMsgLists.push({
+							ggName: this.ggName,
+							spaceType: $("input[name='spaceType']").val(),
+							ggSort: this.ggSort,
+							ggType:$("select[name='ggType'] option:selected").val(),
+							ggTypeDesc: this.ggTypeDesc,
+							ggUnit: this.ggUnit,
+							creatDate: $("#date").val(),
+							reviseDate: $("#date1").val(),
+							description: this.description
+						})
+						this.ggName = "";
+						this.spaceType = "";
+						this.spaceDesc = "";
+						ggType:"";
+						this.ggTypeDesc = "";
+						this.ggUnit = "";
+						this.creatDate = "";
+						this.reviseDate = "";
+						this.description = "";
+						
+					},
+
+					delete: function(n) {
+						var _this = this;
+
+						function show_confirm() {
+							var r = confirm("确定删除？");
+							if(r == true) {
+								_this.ggMsgLists.splice(n, 1);
+							}
+						}
+						show_confirm();
+					},
+					getPageData: function() {
+						axios.get('/data.txt')
+							.then(function(response) {
+								console.log(response);
+							})
+							.catch(function(response) {
+								console.log(response);
+							});
+					}
+				},
+				created: function() {
+					this.getPageData();
+				}
+			})
+		</script>
+		<script>
+			layui.use(['form', 'layedit', 'laydate'], function() {
+				var form = layui.form,
+					layer = layui.layer,
+					layedit = layui.layedit,
+					laydate = layui.laydate;
+
+				//日期
+				laydate.render({
+					elem: '#date'
+				});
+				laydate.render({
+					elem: '#date1'
+				});
+
+				//监听提交
+				form.on('submit(demo1)', function(data) {
+					layer.alert(JSON.stringify(data.field), {
+						title: '最终的提交信息'
+					})
+					return false;
+				});
+
+			});
+
+			$(function() {
+				$('#serchId').on('change', function() {
+					// console.log($('#filterName').val());
+					$('table tbody tr').hide()
+						.filter(":contains('" + ($('#serchId').val()) + "')")
+						.show();
+				})
+			})
+		</script>
+	</body>
+
+</html>

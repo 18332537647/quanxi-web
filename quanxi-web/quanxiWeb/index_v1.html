@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>首页窗口</title>
+		<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+		<meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+		<link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+		<link href="css/animate.min.css" rel="stylesheet">
+		<link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+		<base target="_blank">
+		<style>
+			.ibox-content {
+				overflow: hidden;
+			}
+			
+			.list-block {
+				float: left;
+				margin-right: 8%;
+			}
+			
+			.list-block li {
+				line-height: 24px;
+				width: 100px;
+			}
+			
+			.list-block li span {
+				float: right;
+				color: red;
+			}
+			
+			.project-box {
+				background-color: #fff;
+				overflow: hidden;
+				padding: 20px;
+				margin: 0 0 30px 0px;
+			}
+			
+			.project-box p span {
+				float: right;
+				color: #007BFF;
+				font-size: 14px;
+				padding: 0 8px;
+			}
+			
+			.project-box .edit {
+				color: #007BFF;
+				text-align: center;
+			}
+			
+			.project-box .del {
+				color: red;
+				text-align: center;
+			}
+			
+			.project-box table {
+				border: 1px solid #ccc;
+			}
+			
+			.big-box {
+				background-color: #fff;
+			}
+		</style>
+	</head>
+
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeInRight">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<span class="label label-success pull-right">月</span>
+							<h5>项目</h5>
+						</div>
+						<div class="ibox-content">
+							<ul class="list-block">
+								<li>定制中<span>2</span></li>
+								<li>定制成功<span>1</span></li>
+								<li>审核中<span>0</span></li>
+							</ul>
+							<ul class="list-block">
+								<li>审核未通过<span>2</span></li>
+								<li>提交未审核<span>1</span></li>
+								<li>招商中<span>0</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<span class="label label-info pull-right">全年</span>
+							<h5>课程</h5>
+						</div>
+						<div class="ibox-content">
+							<ul class="list-block">
+								<li>定制中<span>2</span></li>
+								<li>定制成功<span>1</span></li>
+								<li>审核中<span>0</span></li>
+							</ul>
+							<ul class="list-block">
+								<li>审核未通过<span>2</span></li>
+								<li>提交未审核<span>1</span></li>
+								<li>招师中<span>0</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<span class="label label-primary pull-right">今天</span>
+							<h5>工厂订单</h5>
+						</div>
+						<div class="ibox-content">
+							<ul class="list-block">
+								<li>待接订单<span>2</span></li>
+								<li>已发货订单<span>1</span></li>
+								<li>失败订单<span>0</span></li>
+							</ul>
+							<ul class="list-block">
+								<li>代发订单<span>2</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="big-box">
+
+				<div class="row project-box">
+					<p>正在进行中的项目 <span>查看更多</span></p>
+					<table class="table">
+						<tr>
+							<td>未发布</td>
+							<td>从世界第二高峰留下的冰川之水，原来是这个味道</td>
+							<td class="edit">编辑</td>
+							<td class="del">删除</td>
+						</tr>
+						<tr>
+							<td>审核中</td>
+							<td>从世界第二高峰留下的冰川之水，原来是这个味道</td>
+							<td class="edit">编辑</td>
+							<td class="del">删除</td>
+						</tr>
+					</table>
+				</div>
+				<div class="row project-box">
+					<p>正在进行中的课程 <span>查看更多</span></p>
+					<table class="table">
+						<tr>
+							<td>未发布</td>
+							<td>从世界第二高峰留下的冰川之水，原来是这个味道</td>
+							<td class="edit">编辑</td>
+							<td class="del">删除</td>
+						</tr>
+						<tr>
+							<td>编辑中</td>
+							<td>从世界第二高峰留下的冰川之水，原来是这个味道</td>
+							<td class="edit">编辑</td>
+							<td class="del">删除</td>
+						</tr>
+					</table>
+				</div>
+				<div class="row project-box">
+					<p>工厂订单 <span>查看更多</span></p>
+					<table class="table">
+						<tr>
+							<td>待接订单</td>
+							<td>从世界第二高峰留下的冰川之水，原来是这个味道</td>
+							<td>20件</td>
+							<td>500ml/件</td>
+							<td class="edit">编辑</td>
+							<td class="del">删除</td>
+						</tr>
+						<tr>
+							<td>代发订单</td>
+							<td>从世界第二高峰留下的冰川之水，原来是这个味道</td>
+							<td>20件</td>
+							<td>500ml/件</td>
+							<td class="edit">编辑</td>
+							<td class="del">删除</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery.min.js?v=2.1.4"></script>
+		<script src="js/bootstrap.min.js?v=3.3.5"></script>
+	</body>
+
+</html>

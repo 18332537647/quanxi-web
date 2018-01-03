@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>全息云-创建服务</title>
+		<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+		<meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="../css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+		<link href="../css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+		<link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+		<link href="../css/plugins/steps/jquery.steps.css" rel="stylesheet">
+		<link href="../css/plugins/layui/css/layui.css" rel="stylesheet">
+		<link href="../css/plugins/bootstrap-fileinput.css" rel="stylesheet">
+		<link href="../css/animate.min.css" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="../css/plugins/webuploader/webuploader.css">
+		<link rel="stylesheet" type="text/css" href="../css/demo/webuploader-demo.min.css">
+		<link href="../css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+		<link href="../css/step.css" rel="stylesheet">
+
+		<link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+		<link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+		<link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+
+		<base target="_blank">
+
+		<style>
+			.wizard>.content>.body {
+				position: relative;
+			}
+			
+			.small-list-group .form-group {
+				padding-left: 0;
+			}
+			
+			.form-control,
+			.single-line {
+				border-radius: 4px;
+			}
+			
+			.hr-line-dashed {
+				background-color: #333;
+			}
+			
+			.ibox-content h1 {
+				font-size: 18px;
+				line-height: 30px;
+				border-bottom: 1px dashed #666;
+				margin-bottom: 15px;
+			}
+			
+			#big-model {
+				padding: 20px;
+			}
+			
+			.arrowBtn {
+				cursor: pointer;
+				font-size: 24px;
+				float: right;
+				margin-top: -6px;
+			}
+			
+			#stepBox {
+				overflow: hidden;
+				position: fixed;
+				z-index: 2;
+				left: 20px;
+				top: 2px;
+				width: 100%;
+				padding-left: 30px;
+			}
+			
+			#stepBox ul {
+				float: left;
+				width: 84%;
+			}
+			
+			#stepBox div {
+				float: right;
+				margin: 20px 0;
+				width: 15%;
+			}
+			
+			.nextStep {
+				float: right;
+			}
+			
+			.modal-dialog {
+				padding-top: 150px;
+			}
+			
+			.nav>li.active {
+				background: #fff!important;
+			}
+			
+			.two-but {
+				float: right;
+			}
+			
+			.model-span {
+				float: right;
+				font-size: 14px;
+				color: #007BFF;
+				padding-right: 20px;
+				cursor: pointer;
+			}
+			
+			#data_5 input {
+				height: 34px;
+			}
+			
+			.but-group {
+				width: 100%;
+				display: block;
+			}
+			
+			.but-group .input-group-btn {
+				float: left;
+				width: 70%;
+				color: #fff;
+			}
+			
+			.but-group button {
+				display: block;
+				margin-left: 10px;
+				float: left;
+				color: #fff;
+			}
+			
+			.serch-box {
+				width: 80%;
+				float: left;
+			}
+			
+			.serch-button {
+				float: left;
+			}
+			
+			#buiness-box {
+				width: 1000px;
+				margin: 0px auto;
+				background-color: #fff;
+				overflow: hidden;
+				padding-top: 30px;
+				padding-bottom: 50px;
+			}
+			
+			#buiness-box label {
+				width: 110px;
+			}
+			
+			.list-box {
+				border: 1px solid #eee;
+				width: 900px;
+				margin: 0 auto;
+			}
+			
+			.small-box {
+				height: 80px;
+				border-bottom: 1px solid #eee;
+			}
+			
+			.small-box .avatar {
+				width: 50px;
+				height: 50px;
+				float: left;
+				margin: 15px;
+				border-radius: 50px;
+			}
+			
+			.small-box .name {
+				font-size: 18px;
+				color: #333;
+				font-weight: bold;
+				;
+			}
+			
+			.small-box p {
+				line-height: 30px;
+				margin-top: 10px;
+			}
+			
+			.small-box p .label-border {
+				border: 1px solid #eee;
+				padding: 2px 5px;
+				margin-left: 10px;
+				color: #666;
+			}
+			
+			.small-box .second-p {
+				margin-top: 0;
+			}
+			
+			.second-p span {
+				margin-left: 15px;
+			}
+			
+			.second-p span.sex {
+				margin-left: 0;
+			}
+			
+			.small-box .left {
+				float: left;
+				width: 500px;
+				overflow: hidden;
+			}
+			
+			.line {
+				width: 1px;
+				height: 60px;
+				margin-top: 10px;
+				float: left;
+				background-color: #EEE;
+				margin-left: 15px;
+			}
+			
+			.center {
+				float: left;
+				padding-left: 15px;
+				width: 230px;
+			}
+			
+			.center .second-p span:first-child {
+				margin-left: 0px;
+			}
+			
+			.right {
+				color: #007BFF;
+				line-height: 80px;
+				text-align: center;
+				cursor: pointer;
+			}
+			
+			.layui-input-block {
+				margin-left: 0;
+			}
+			
+			#buiness-box h3 {
+				text-align: center;
+				font-size: 18px;
+				padding-bottom: 20px;
+			}
+		</style>
+	</head>
+
+	<body class="gray-bg">
+
+		<div class="wrapper wrapper-content ">
+			<div class="ibox">
+
+				<div class="ibox-content">
+					<form id="" action="" class="">
+
+						<h1>基本设置<span class='btn arrowBtn'>
+									 <i class='fa fa-angle-down'></i>
+									 <i class='fa fa-angle-right hidden'></i>
+									</span></h1>
+						<fieldset>
+							<!--<h2>账户信息</h2>-->
+							<div class="row">
+								<div class="col-sm-12">
+									<h3>产品信息</h3>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label>服务标题 *</label>
+										<input id="" name="" type="text" class="form-control required" placeholder="请输入产品标题">
+									</div>
+									<div class="form-group">
+										<label>服务简介 *</label>
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="ibox float-e-margins">
+													<div class="ibox-content no-padding">
+														<div class="summernote">
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label>添加服务大图*</label>
+										<div>
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="ibox float-e-margins">
+
+														<div class="ibox-content">
+															<div class="page-container">
+
+																<div id="uploader" class="wu-example">
+																	<div class="queueList">
+																		<div id="dndArea" class="placeholder">
+																			<div id="filePicker"></div>
+																		</div>
+																	</div>
+																	<div class="statusBar" style="display:none;">
+																		<div class="progress">
+																			<span class="text">0%</span>
+																			<span class="percentage"></span>
+																		</div>
+																		<div class="info"></div>
+																		<div class="btns">
+
+																			<div class="uploadBtn">开始上传</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label>服务分类*</label>
+										<select name="quiz" class="form-control">
+											<option value="">请选择服务分类</option>
+											<optgroup label="大的分类">
+												<option value="">服务1</option>
+												<option value="">服务2</option>
+												<option value="你工作的第一个城市">服务3</option>
+											</optgroup>
+											<optgroup label="大的分类2">
+												<option value="">服务1</option>
+												<option value="">服务2</option>
+											</optgroup>
+										</select>
+									</div>
+									<div class="small-list-group">
+										<div class="form-group col-sm-3">
+											<label for="">服务价格（单位：元）</label>
+											<input type="number" class="form-control" id="" placeholder="请输入产品原价￥">
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="">众筹数量 </label>
+											<input type="number" class="form-control" id="" placeholder="请输入众筹数量">
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="">众筹金额（单位：元）</label>
+											<input type="number" class="form-control" id="" placeholder="请输入众筹金额￥">
+										</div>
+										<div class="form-group col-sm-3">
+											<label for="exampleInputEmail2">众筹截止时间 </label>
+											<div class="layui-form">
+												<div class="layui-form-item">
+													<div class="layui-inline ">
+														<div class="layui-input-inline">
+															<input type="text" class="form-control" id="test1" placeholder="yyyy-MM-dd" style="height:34px;">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group col-sm-3" id="data_5">
+											<label for="">服务开始时间 - 服务结束时间</label>
+											<div class="input-daterange input-group" id="datepicker">
+												<input type="text" class="input-sm form-control" name="start" value="2014-11-11" />
+												<span class="input-group-addon">到</span>
+												<input type="text" class="input-sm form-control" name="end" value="2014-11-17" />
+											</div>
+										</div>
+
+										<div class="form-group col-sm-3 ">
+											<label for="exampleInputEmail2 ">发起人姓名 *</label>
+											<input type=" " class="form-control " id=" " placeholder="此处为发起人姓名，不可修改 " readonly="readonly">
+										</div>
+
+									</div>
+									<div style="clear:both;"></div>
+									<br />
+									<div class="form-group ">
+										<label>课程故事 *</label>
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="ibox float-e-margins">
+													<div class="ibox-content no-padding">
+														<div class="summernote">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h3>团队信息
+										<span data-toggle="modal" data-target="#myModal" class="model-span">添加团队信息</span>
+									</h3>
+									<div class="hr-line-dashed "></div>
+
+									<!-- Modal -->
+									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+													<h4 class="modal-title" id="myModalLabel">添加团队信息</h4>
+												</div>
+												<div class="modal-body">
+													<div id="app" v-cloak>
+														<div class="small-list-group " style="overflow: hidden; ">
+															<div class="layui-form">
+																<div class="form-group col-sm-3 ">
+																	<label for=" ">人员id *</label>
+																	<input type="text" name="peopleId" lay-verify="peopleId" autocomplete="off" class="layui-input" v-model="peopleId" placeholder="请输入人员id">
+																</div>
+																<div class="form-group col-sm-3 ">
+																	<label for=" ">类型 *</label>
+																	<input type="text" name="peopleType" placeholder="请输入类型 " lay-verify="" autocomplete="off" class="layui-input" v-model="peopleType">
+																</div>
+																<div class="form-group col-sm-3 ">
+																	<label for=" ">职责 *</label>
+																	<input type="text" name="verificationCode" placeholder="请输入职责 " lay-verify="" autocomplete="off" class="layui-input" v-model="verificationCode">
+																</div>
+																<div class="form-group col-sm-3 ">
+																	<label for=" ">分红比例 *</label>
+																	<input type="text" name="password" placeholder="请输入分红比例 " lay-verify="" autocomplete="off" class="layui-input" v-model="password">
+																</div>
+
+															</div>
+														</div>
+
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+													<button type="button" class="btn btn-primary" @click="add" data-dismiss="modal">确认</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="layui-form">
+										<table class="layui-table">
+
+											<thead>
+												<tr>
+													<th>编号</th>
+													<th>人员id</th>
+													<th>类型</th>
+													<th>职责</th>
+													<th>分红比例</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>001</td>
+													<td>3001</td>
+													<td>管理人</td>
+													<td>项目管理</td>
+													<td>35%</td>
+													<td>
+														<button class="layui-btn layui-btn-normal layui-btn-small" @click="delete"><i class="layui-icon"></i></button>
+													</td>
+												</tr>
+												<tr v-for="item in messageList">
+													<td>{{$index+1}}</td>
+													<td>{{item.peopleId}}</td>
+													<td>{{item.peopleType}}</td>
+													<td>{{item.verificationCode}}</td>
+													<td>{{item.password}}</td>
+													<td>
+														<button class="layui-btn layui-btn-normal layui-btn-small" @click="delete"><i class="layui-icon"></i></button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+								</div>
+							</div>
+
+						</fieldset>
+						<h1>回报设置<span class='btn arrowBtn'>
+									 <i class='fa fa-angle-down hidden'></i>
+									 <i class='fa fa-angle-right'></i>
+									</span></h1>
+						<fieldset style="display:none;">
+							<div class="row ">
+								<div class="col-sm-12 ">
+
+									<div class="form-group ">
+										<label>回报标题 *</label>
+										<input id=" " name=" " type="text " class="form-control required " placeholder="请输入回报标题 ">
+									</div>
+									<div class="form-group ">
+										<label>回报描述 *</label>
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="ibox float-e-margins">
+													<div class="ibox-content no-padding">
+														<div class="summernote">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="small-list-group " style="overflow: hidden; ">
+										<div class="form-group col-sm-3">
+											<label>分类*</label>
+											<select class="form-control m-b " name="account ">
+												<option>请选择</option>
+												<option>买产品</option>
+												<option>买产品+利润分红</option>
+											</select>
+										</div>
+										<div class="form-group col-sm-3">
+											<label for=" ">单组个数 *</label>
+											<input type="text " class="form-control " id=" " placeholder="请输入单组个数 ">
+										</div>
+										<div class="form-group col-sm-3">
+											<label for=" ">单组金额 *</label>
+											<input type=" " class="form-control " id=" " placeholder="请输入单组金额 ">
+										</div>
+										<div class="form-group col-sm-3">
+											<label for=" ">数量（组） *</label>
+											<input type=" " class="form-control " id=" " placeholder="请输入数量 ">
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</fieldset>
+
+						<h1>招商管理<span class='btn arrowBtn'>
+									 <i class='fa fa-angle-down hidden'></i>
+									 <i class='fa fa-angle-right'></i>
+									</span></h1>
+						<fieldset style="display:none;">
+							<div class="col-sm-12" style="padding-left:0;">
+
+								<div class="form-group ">
+									<label>无厂家，招募厂家 </label>
+									<div class="input-group but-group">
+										<input type="text " class="form-control input-group-btn" placeholder="搜索厂家或选择推荐厂家，直接邀请 ">
+										<button type="button" class="btn layui-btn-normal" data-toggle="modal" data-target="#serchModal">搜索</button>
+										<button type="button" class="btn layui-btn-normal" data-toggle="modal" data-target="#recommendModal">查看推荐</button>
+										<button type="button" class="btn layui-btn-warm recruitment">发布信息，去招聘</button>
+									</div>
+								</div>
+								<!-- Modal -->
+								<div class="modal fade" id="serchModal" tabindex="-1" role="dialog" aria-label-borderledby="myModallabel">
+									<div class="modal-dialog" role="document" style="width:1060px;">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label-border="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModallabel-border">厂家列表</h4>
+											</div>
+											<div class="modal-body">
+												<div id="buiness-box">
+													<div class="layui-form-item">
+														<div class="layui-input-block">
+															<label class="layui-form-label">招募厂家:</label>
+															<input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input serch-box">
+															<button class="layui-btn layui-btn-normal serch-button">搜索</button>
+														</div>
+													</div>
+													<div class="list-box">
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name" name=>温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<!-- 推荐模态框 -->
+								<div class="modal fade" id="recommendModal" tabindex="-1" role="dialog" aria-label-borderledby="myModallabel">
+									<div class="modal-dialog" role="document" style="width:1060px;">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label-border="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModallabel-border">厂家列表</h4>
+											</div>
+											<div class="modal-body">
+												<div id="buiness-box">
+													<h3>为您推荐4个相关厂家</h3>
+													<div class="list-box">
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+														<div class="small-box">
+															<div class="left">
+																<img src="img/a1.jpg" alt="" / class="avatar">
+																<p>
+																	<span class="name">温春春</span>
+																	<span class="label-border">√实名</span>
+																	<span class="label-border">√企业家</span>
+																	<span class="label-border">√创业导师</span>
+																	<span class="label-border">√讲师</span>
+																</p>
+																<p class="second-p">
+																	<span class="sex">男</span>
+																	<span class="age">30岁</span>
+																	<span class="address">北京</span>
+																	<span class="wechat">微信：weixin8777</span>
+																	<span class="tel">电话：18332537647</span>
+																</p>
+															</div>
+															<div class="line"></div>
+															<div class="center">
+																<p>平台接单共：23单</p>
+																<p class="second-p"><span>创建课程：12件</span><span>创建项目：3项</span></p>
+															</div>
+															<div class="line"></div>
+															<div class="right invite">邀请</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</fieldset>
+
+						<h1>成本清单<span class='btn arrowBtn'>
+									 <i class='fa fa-angle-down hidden'></i>
+									 <i class='fa fa-angle-right'></i>
+									</span></h1>
+						<fieldset style="display:none;">
+							<div class="row ">
+								<div class="col-sm-12 ">
+									<div class="form-group ">
+										<label>选择类型</label>
+										<select class="form-control m-b " name="account ">
+											<option>请选择</option>
+											<option>数字字典一</option>
+											<option>数字字典二</option>
+										</select>
+									</div>
+									<div class="form-group ">
+										<label>成本说明 *</label>
+										<input id=" " name=" " type="text " class="form-control required " placeholder="请输入成本说明 ">
+									</div>
+									<div class="form-group ">
+										<label>费用 *</label>
+										<input id=" " name=" " type="text " class="form-control required " placeholder="请输入费用 ">
+									</div>
+									<div class="small-list-group " style="overflow: hidden; ">
+										<div class="form-group col-sm-3 ">
+											<label for=" ">预付款数 *</label>
+											<input type="text " class="form-control " id=" " placeholder="请输入预付款数 ">
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<!--	<script src="js/content.min.js?v=1.0.0 "></script>-->
+		<script src="../js/plugins/staps/jquery.steps.min.js "></script>
+		<script src="../js/plugins/validate/jquery.validate.min.js "></script>
+		<script src="../js/plugins/validate/messages_zh.min.js "></script>
+		<!--日期和弹框依赖-->
+		<script src="../js/plugins/layui/layui.js "></script>
+		<script src="../js/plugins/layer/layer.min.js "></script>
+		<script src="../js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+		<script type="text/javascript">
+			var BASE_URL = '../js/plugins/webuploader';
+		</script>
+		<script src="../js/plugins/webuploader/webuploader.min.js"></script>
+		<script src="../js/demo/webuploader-demo.min.js"></script>
+		<!--富文本编辑器-->
+		<script src="../js/plugins/summernote/summernote.min.js"></script>
+		<script src="../js/plugins/summernote/summernote-zh-CN.js"></script>
+
+		<script src="../js\bootstrap-fileinput.js"></script>
+
+		<script src="../js/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+		<script>
+			var app = new Vue({
+				el: 'form',
+				data: {
+					tit: '添加团队信息',
+					tit1: '已有团队信息',
+					peopleId: "",
+					peopleType: "",
+					verificationCode: "",
+					password: "",
+					messageList: [],
+
+				},
+
+				methods: {
+					add: function() {
+						this.messageList.push({
+							peopleId: this.peopleId,
+							peopleType: this.peopleType,
+							verificationCode: this.verificationCode,
+							password: this.password,
+							repeatPassword: this.repeatPassword
+						})
+						this.peopleId = "";
+						this.peopleType = "";
+						this.verificationCode = "";
+						this.password = "";
+						this.repeatPassword = "";
+					},
+					delete: function(n) {
+						var _this = this;
+
+						function show_confirm() {
+							var r = confirm("确定删除？");
+							if(r == true) {
+								_this.messageList.splice(n, 1);
+							}
+						}
+						show_confirm();
+					},
+					getPageData: function() {
+						axios.get('/data.txt')
+							.then(function(response) {
+								console.log(response);
+							})
+							.catch(function(response) {
+								console.log(response);
+							});
+					}
+				},
+				created: function() {
+					this.getPageData();
+				}
+			})
+		</script>
+
+		<script>
+			//富文本编辑器
+			$(document).ready(function() {
+				$(".summernote").summernote({
+					lang: "zh-CN"
+				})
+			});
+			var edit = function() {
+				$("#eg").addClass("no-padding");
+				$(".click2edit").summernote({
+					lang: "zh-CN",
+					focus: true
+				})
+			};
+			var save = function() {
+				$("#eg").removeClass("no-padding");
+				var aHTML = $(".click2edit").code();
+				$(".click2edit").destroy()
+			};
+
+			//日历渲染
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+
+				//常规用法
+				laydate.render({
+					elem: '#test1'
+				});
+
+			});
+
+			//招募厂家的弹框
+			var html;
+			html = '<div id="big-model">' + '<div class="form-group">' +
+				'<label>产品标题 *</label>' +
+				'<input id="" name="" type="text" class="form-control required" placeholder="请输入招募标题">' +
+				'</div>' +
+				'<div class="form-group">' +
+				'<label>产品简介 *</label>' +
+				'<textarea class="form-control" rows="3" placeholder="请输入招募公告"></textarea>' +
+				'</div>' + '<button class="btn-lg btn-primary layui-layer-close" style="float:right;position:relative;">确定</button>' + '</div>';
+
+			//调用layer弹出层
+			$("#announce").click(function() {
+				layer.open({
+					type: 1,
+					title: '发布招募公告',
+					skin: 'layui-layer-rim', //加上边框
+					area: ['820px', '440px'], //宽高
+					content: html
+				});
+
+			})
+
+			//点击箭头显示隐藏效果
+			$('form h1').click(function(ev) {
+				$(this).next().toggle();
+				$(this).find(".arrowBtn").children('.fa-angle-down').toggleClass('hidden');
+				$(this).find(".arrowBtn").children('.fa-angle-right').toggleClass('hidden');
+			})
+			$(".nextStep").click(function() {
+				$(this).parent().hide();
+				$(this).parent().next().next().show();
+			})
+
+			$('.recruitment').on('click', function() {
+				layer.open({
+					title: '招募厂商',
+					content: '招聘信息已发布，请耐心等待'
+				});
+				$(this).css("background-color","#ccc").attr('disabled',true);
+			});
+			
+			$(".invite").click(function(){
+				var peopleName = $(this).parent().find(".left").find("p").find("span[class='name']").html;
+				alert(peopleName);
+			})
+		</script>
+		<script type="text/javascript " src="http://tajs.qq.com/stats?sId=9051096 " charset="UTF-8 "></script>
+		<script src="../js/plugins/cropper/cropper.min.js"></script>
+		<script src="../js/demo/form-advanced-demo.min.js"></script>
+	</body>
+
+</html>

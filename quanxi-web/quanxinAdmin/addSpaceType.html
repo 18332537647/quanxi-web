@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>添加空间分类</title>
+		<link href="css/plugins/layui/css/layui.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="css/jquery.treegrid.css">
+		<link rel="stylesheet" href="css/treeGridStyles.css" />
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.treegrid.min.js"></script>
+		<script src="js/jquery.treegrid.bootstrap3.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.tree').treegrid();
+			});
+		</script>
+	</head>
+	<style>
+		#ggBox {
+			background-color: #fff;
+			padding: 0 30px 30px 30px;
+		}
+		
+		.formHeader {
+			margin: 20px 0 10px 0;
+		}
+		
+		body {
+			margin: 20px;
+		}
+		
+		[v-cloak] {
+			display: none;
+		}
+		
+		thead tr {
+			font-weight: bold;
+			background-color: #eee;
+		}
+		
+		.layui-form-label {
+			width: 130px;
+		}
+		
+		.layui-input,
+		.layui-textarea {
+			width: 90%;
+		}
+		
+		.layui-upload {
+			border: 1px solid #eee;
+			width: 96px;
+			height: 96px;
+			float: left;
+			text-align: center;
+		}
+		
+		#test1 {
+			line-height: 96px;
+		}
+		
+		.layui-upload-list {
+			margin-top: -95px;
+		}
+		
+		.layui-form select {
+			display: block
+		}
+	</style>
+
+	<body v-cloak>
+		<div class="form-inline formHeader">
+			<div class="form-group">
+				<input type="text" class="form-control" id="serchId" placeholder="请输入id进行搜索">
+			</div>
+			<button type="submit" class="btn btn-default">查找</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float:right;">添加</button>
+		</div>
+		<table class="tree table table-hover table-bordered" style="text-align: center;">
+			<thead>
+				<tr>
+					<td>名称</td>
+					<td>描述</td>
+					<td>创建人</td>
+					<td>创建时间</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="treegrid-1">
+					<td>酒空间</td>
+					<td style="text-align: left;">这是对酒空间的介绍</td>
+					<td>李四</td>
+					<td>2017-11-01</td>
+					<td>
+						<button type="button" class="btn btn-primary btn-xs">编辑</button>
+						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
+					</td>
+				</tr>
+				<tr class="treegrid-2 treegrid-parent-1">
+					<td>红酒空间</td>
+					<td style="text-align: left;">这是对红酒空间的介绍</td>
+					<td>李四</td>
+					<td>2017-11-02</td>
+					<td>
+						<button type="button" class="btn btn-primary btn-xs">编辑</button>
+						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
+					</td>
+				</tr>
+				<tr class="treegrid-3 treegrid-parent-1">
+					<td>白酒空间</td>
+					<td style="text-align: left;">这是对白酒空间的介绍</td>
+					<td>张三</td>
+					<td>2017-12-12</td>
+					<td>
+						<button type="button" class="btn btn-primary btn-xs">编辑</button>
+						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
+					</td>
+				</tr>
+				<tr class="treegrid-4 treegrid-parent-3">
+					<td>茅台</td>
+					<td style="text-align: left;">这是对茅台酒的介绍描述</td>
+					<td>张三</td>
+					<td>2017-12-15</td>
+					<td>
+						<button type="button" class="btn btn-primary btn-xs">编辑</button>
+						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
+					</td>
+				</tr>
+				<tr v-for="item in spaceMsgLists">
+					<td>{{item.spaceName}}</td>
+					<td style="text-align: left;">{{item.spaceDesc}}</td>
+
+					<td>
+						<button type="button" class="btn btn-primary btn-xs">编辑</button>
+						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- 添加规格型号的弹窗 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document" style="width:80%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">添加空间类型</h4>
+					</div>
+					<div class="modal-body">
+						<div id="ggBox">
+							<form class="layui-form" action="">
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-label">名称：</label>
+										<div class="layui-input-inline">
+											<input type="text" name="spaceName" autocomplete="off" class="layui-input" placeholder="请输入空间名称" v-model="spaceName">
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">选择父级空间</label>
+									<div class="layui-input-inline">
+										<select name="" style="height:34px;width:90%;border:1px solid #eee;padding-left:10px;">
+											<option value="0">请选择省</option>
+											<option value="1" selected="">酒空间</option>
+											<option value="2">中医空间</option>
+										</select>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">说明描述：</label>
+									<div class="layui-input-block">
+										<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请添加说明描述" class="layui-input">
+									</div>
+								</div>
+
+								<div class="layui-form-item">
+									<label class="layui-form-label">上传空间图片：</label>
+									<div class="layui-upload">
+										<!--<button type="button" class="" id="test1">上传图片</button>-->
+										<span id="test1">上传图片</span>
+										<div class="layui-upload-list">
+											<img class="layui-upload-img" id="demo1">
+											<p id="demoText"></p>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" @click="add" data-dismiss="modal">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/plugins/layui/layui.js "></script>
+		<script src="js/vue.js "></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+		<script>
+			var vm = new Vue({
+				el: "body",
+				data: {
+					spaceId: "",
+					spaceName: "",
+					spaceParentId: "",
+					spaceDesc: "",
+					spaceMsgLists: []
+				},
+				methods: {
+					add: function() {
+						this.spaceMsgLists.push({
+							spaceName: this.spaceName,
+							spaceDesc: this.spaceDesc,
+						})
+						this.spaceName = "";
+						this.spaceDesc = "";
+					},
+					delete: function(n) {
+						var _this = this;
+
+						function show_confirm() {
+							var r = confirm("确定删除？");
+							if(r == true) {
+								_this.spaceMsgLists.splice(n, 1);
+							}
+						}
+						show_confirm();
+					},
+					getPageData: function() {
+						axios.get('/industrySpace/getIndustrySpaceList')
+							.then(function(response) {
+								console.log(response);
+							})
+							.catch(function(response) {
+								console.log(response);
+							});
+					}
+				},
+				created: function() {
+					this.getPageData();
+				}
+			})
+		</script>
+		<script>
+			layui.use('upload', function() {
+				var $ = layui.jquery,
+					upload = layui.upload;
+				//普通图片上传
+				var uploadInst = upload.render({
+					elem: '#test1',
+					url: '/upload/',
+					before: function(obj) {
+						//预读本地文件示例，不支持ie8
+						obj.preview(function(index, file, result) {
+							$('#demo1').attr('src', result); //图片链接（base64）
+						});
+					},
+					done: function(res) {
+						//如果上传失败
+						if(res.code > 0) {
+							return layer.msg('上传失败');
+						}
+						//上传成功
+					},
+					error: function() {
+						//演示失败状态，并实现重传
+						var demoText = $('#demoText');
+						demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+						demoText.find('.demo-reload').on('click', function() {
+							uploadInst.upload();
+						});
+					}
+				});
+			});
+
+			$(function() {
+				$('#serchId').on('change', function() {
+					// console.log($('#filterName').val());
+					$('table tbody tr').hide()
+						.filter(":contains('" + ($('#serchId').val()) + "')")
+						.show();
+				})
+			})
+		</script>
+	</body>
+
+</html>
