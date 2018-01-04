@@ -6,13 +6,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>添加空间分类</title>
-		
+
 		<link rel="stylesheet" href="../css/plugins/layui/css/layui.css">
 		<link href="../css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 		<link rel="stylesheet" href="../css/plugins/bootstrap/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/plugins/tree/jquery.treegrid.css">
-		<link rel="stylesheet" href="../css/plugins/tree/treeGridStyles.css"/>
-		<script src="../js/plugins/jquery/jquery.min.js"></script>
+		<link rel="stylesheet" href="../css/plugins/tree/treeGridStyles.css" />
+		<script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script>
 		<script src="../js/plugins/tree/jquery.treegrid.min.js"></script>
 		<script src="../js/plugins/tree/jquery.treegrid.bootstrap3.js"></script>
 
@@ -88,7 +88,6 @@
 				<tr>
 					<td>名称</td>
 					<td>描述</td>
-					<td>创建人</td>
 					<td>创建时间</td>
 					<td>操作</td>
 				</tr>
@@ -97,7 +96,6 @@
 				<tr class="treegrid-1">
 					<td>酒空间</td>
 					<td style="text-align: left;">这是对酒空间的介绍</td>
-					<td>李四</td>
 					<td>2017-11-01</td>
 					<td>
 						<button type="button" class="btn btn-primary btn-xs">编辑</button>
@@ -107,7 +105,6 @@
 				<tr class="treegrid-2 treegrid-parent-1">
 					<td>红酒空间</td>
 					<td style="text-align: left;">这是对红酒空间的介绍</td>
-					<td>李四</td>
 					<td>2017-11-02</td>
 					<td>
 						<button type="button" class="btn btn-primary btn-xs">编辑</button>
@@ -117,7 +114,6 @@
 				<tr class="treegrid-3 treegrid-parent-1">
 					<td>白酒空间</td>
 					<td style="text-align: left;">这是对白酒空间的介绍</td>
-					<td>张三</td>
 					<td>2017-12-12</td>
 					<td>
 						<button type="button" class="btn btn-primary btn-xs">编辑</button>
@@ -127,7 +123,6 @@
 				<tr class="treegrid-4 treegrid-parent-3">
 					<td>茅台</td>
 					<td style="text-align: left;">这是对茅台酒的介绍描述</td>
-					<td>张三</td>
 					<td>2017-12-15</td>
 					<td>
 						<button type="button" class="btn btn-primary btn-xs">编辑</button>
@@ -135,9 +130,9 @@
 					</td>
 				</tr>
 				<tr v-for="item in spaceMsgLists">
-					<td>{{item.spaceName}}</td>
-					<td style="text-align: left;">{{item.spaceDesc}}</td>
-
+					<td>{{item.name}}</td>
+					<td style="text-align: left;">{{item.description}}</td>
+					<td style="text-align: left;">{{item.createTime}}</td>
 					<td>
 						<button type="button" class="btn btn-primary btn-xs">编辑</button>
 						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
@@ -155,12 +150,12 @@
 					</div>
 					<div class="modal-body">
 						<div id="ggBox">
-							<form class="layui-form" action="">
+							<form class="layui-form" action="" id="myform" enctype="multipart/form-data">
 								<div class="layui-form-item">
 									<div class="layui-inline">
 										<label class="layui-form-label">名称：</label>
 										<div class="layui-input-inline">
-											<input type="text" name="spaceName" autocomplete="off" class="layui-input" placeholder="请输入空间名称" v-model="spaceName">
+											<input type="text" name="name" autocomplete="off" class="layui-input" placeholder="请输入空间名称" v-model="name">
 										</div>
 									</div>
 								</div>
@@ -175,7 +170,7 @@
 								<div class="layui-form-item">
 									<label class="layui-form-label">选择父级空间</label>
 									<div class="layui-input-inline">
-										<select name="" style="height:34px;width:90%;border:1px solid #eee;padding-left:10px;">
+										<select name="parentId" style="height:34px;width:90%;border:1px solid #eee;padding-left:10px;" v-model="parentId">
 											<option value="0">请选择省</option>
 											<option value="1" selected="">酒空间</option>
 											<option value="2">中医空间</option>
@@ -185,7 +180,7 @@
 								<div class="layui-form-item">
 									<label class="layui-form-label">说明描述：</label>
 									<div class="layui-input-block">
-										<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请添加说明描述" class="layui-input">
+										<input type="text" name="description" lay-verify="title" autocomplete="off" placeholder="请添加说明描述" class="layui-input" v-model="description">
 									</div>
 								</div>
 
@@ -195,7 +190,8 @@
 										<!--<button type="button" class="" id="test1">上传图片</button>-->
 										<span id="test1">上传图片</span>
 										<div class="layui-upload-list">
-											<img class="layui-upload-img" id="demo1">
+											<!--<img class="layui-upload-img" id="demo1">-->
+											<input type="file" name="ImgFile" v-model="ImgFile" />
 											<p id="demoText"></p>
 										</div>
 									</div>
@@ -205,93 +201,153 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" @click="add" data-dismiss="modal">保存</button>
+						<button type="button" class="btn btn-primary" @click="postPageData" data-dismiss="modal">保存</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
+		<script src="../js/CONSTANT.js"></script>
 		<script src="../js/plugins/layui/layui.js "></script>
 		<script src="../js/plugins/vue/vue.js "></script>
 		<script src="../js/plugins/bootstrap/bootstrap.min.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 		<script>
+	
 			var vm = new Vue({
 				el: "body",
 				data: {
-					spaceId: "",
-					spaceName: "",
-					spaceParentId: "",
-					spaceDesc: "",
+					name: "",
+					sort: "",
+					parentId: "",
+					description: "",
+					ImgFile: "",
 					spaceMsgLists: []
 				},
 				methods: {
-					add: function() {
+					addData:function(){
 						this.spaceMsgLists.push({
-							spaceName: this.spaceName,
-							spaceDesc: this.spaceDesc,
+							name:this.name,
+							sort:this.sort,
+							parentId:this.parentId,
+							description:this.description,
+							ImgFile:this.ImgFile
 						})
-						this.spaceName = "";
-						this.spaceDesc = "";
+						name="";
+						sort="";
+						parentId="";
+						description="";
+						ImgFile="";
 					},
-					delete: function(n) {
-						var _this = this;
+					postPageData: function() {
+						var data = $("#myform").serialize();
+						console.log(data);
+					    $.ajax({    
+		                    type:'post',        
+		                    url:_URL_BASE+'/industrySpace/addIndustrySpace',    
+		                    data:data,    
+		                    cache:false,    
+		                    dataType:'json',    
+		                    success:function(data){   
+		                       console.log(data);
+		                    },  
+						     error : function(data) {  
+						          alert("error");
+						     }      
+		                });
+						
+						/*var formData = new FormData($("#myform")[0]);
+						formData.append("name", "ddd");
+						console.log(formData);
+						$.ajax({
+							url: _URL_BASE + '/industrySpace/addIndustrySpace',
+							type: 'POST',
+							data: new FormData($("#myform")[0]),
+							async: false,
+							cache: false,
+							contentType: false,
+							processData: false,
+							success: function(data) {
+								console.log(data);
+							},
+							error: function(data) {
+								alert("error");
+							}
+						});*/
 
-						function show_confirm() {
+					},
+					getPageData: function() {
+						axios.get(_URL_BASE + '/industrySpace/getIndustrySpaceList')
+							.then(function(response) {
+								var dataList = response.data.DataList;
+								console.log(dataList);
+								var str = "";
+								for(i in dataList) {
+									var getTime = new Date(dataList[i].createTime);
+									Date.prototype.toLocaleString = function() {
+										var date = new Date(getTime); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+										Y = date.getFullYear() + '-';
+										M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+										D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate() + ' ';
+										return Y + M + D;
+									};
+									formatTime = getTime.toLocaleString();
+									str += "<tr><td>" + dataList[i].name + "</td><td>" + dataList[i].description + "</td><td>" + formatTime + "</td>" + "<td><button type='button' class='btn btn-primary btn-xs'>" + "编辑" + "</button><button type='button' class='btn btn-danger btn-xs del'>" + "删除" + "</button>" + "</td></tr>";
+								}
+								$("tbody").append(str);
+							})
+							.catch(function(response) {
+								console.log(response.data);
+							});
+					},
+					delete: function() {
+						function show_confirm(n) {
 							var r = confirm("确定删除？");
 							if(r == true) {
-								_this.spaceMsgLists.splice(n, 1);
+								alert(2222);
+								_this.spaceMsgLists.splice(n, 1); 
 							}
 						}
 						show_confirm();
-					},
-					getPageData: function() {
-						axios.get('/industrySpace/getIndustrySpaceList')
-							.then(function(response) {
-								console.log(response);
-							})
-							.catch(function(response) {
-								console.log(response);
-							});
 					}
 				},
 				created: function() {
 					this.getPageData();
 				}
+
 			})
 		</script>
 		<script>
-			layui.use('upload', function() {
-				var $ = layui.jquery,
-					upload = layui.upload;
-				//普通图片上传
-				var uploadInst = upload.render({
-					elem: '#test1',
-					url: '/upload/',
-					before: function(obj) {
-						//预读本地文件示例，不支持ie8
-						obj.preview(function(index, file, result) {
-							$('#demo1').attr('src', result); //图片链接（base64）
-						});
-					},
-					done: function(res) {
-						//如果上传失败
-						if(res.code > 0) {
-							return layer.msg('上传失败');
+			/*		layui.use('upload', function() {
+					var $ = layui.jquery,
+						upload = layui.upload;
+					//普通图片上传
+					var uploadInst = upload.render({
+						elem: '#test1',
+						url: '/upload/',
+						before: function(obj) {
+							//预读本地文件示例，不支持ie8
+							obj.preview(function(index, file, result) {
+								$('#demo1').attr('src', result); //图片链接（base64）
+							});
+						},
+						done: function(res) {
+							//如果上传失败
+							if(res.code > 0) {
+								return layer.msg('上传失败');
+							}
+							//上传成功
+						},
+						error: function() {
+							//演示失败状态，并实现重传
+							var demoText = $('#demoText');
+							demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+							demoText.find('.demo-reload').on('click', function() {
+								uploadInst.upload();
+							});
 						}
-						//上传成功
-					},
-					error: function() {
-						//演示失败状态，并实现重传
-						var demoText = $('#demoText');
-						demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-						demoText.find('.demo-reload').on('click', function() {
-							uploadInst.upload();
-						});
-					}
-				});
-			});
+					});
+				});*/
 
 			$(function() {
 				$('#serchId').on('change', function() {

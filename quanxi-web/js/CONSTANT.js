@@ -1,3 +1,3 @@
-var _URL_BASE="http://localhost:8080/quanxiyun";
+var _URL_BASE="http://47.95.228.73:8180/quanxiyun";
 
 
