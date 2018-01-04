@@ -6,16 +6,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>添加空间分类</title>
-		<link href="css/plugins/layui/css/layui.css" rel="stylesheet">
-		<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
-
-		<link rel="stylesheet" href="bootstrap.min.css">
-		<link rel="stylesheet" href="css/jquery.treegrid.css">
-		<link rel="stylesheet" href="css/treeGridStyles.css" />
-
-		<script src="js/jquery.min.js"></script>
-		<script src="js/jquery.treegrid.min.js"></script>
-		<script src="js/jquery.treegrid.bootstrap3.js"></script>
+		
+		<link rel="stylesheet" href="../css/plugins/layui/css/layui.css">
+		<link href="../css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+		<link rel="stylesheet" href="../css/plugins/bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/plugins/tree/jquery.treegrid.css">
+		<link rel="stylesheet" href="../css/plugins/tree/treeGridStyles.css"/>
+		<script src="../js/plugins/jquery/jquery.min.js"></script>
+		<script src="../js/plugins/tree/jquery.treegrid.min.js"></script>
+		<script src="../js/plugins/tree/jquery.treegrid.bootstrap3.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -166,6 +165,14 @@
 									</div>
 								</div>
 								<div class="layui-form-item">
+									<div class="layui-inline">
+										<label class="layui-form-label">排序：</label>
+										<div class="layui-input-inline">
+											<input type="text" name="sort" autocomplete="off" class="layui-input" placeholder="请进行排序" v-model="sort">
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item">
 									<label class="layui-form-label">选择父级空间</label>
 									<div class="layui-input-inline">
 										<select name="" style="height:34px;width:90%;border:1px solid #eee;padding-left:10px;">
@@ -204,9 +211,9 @@
 			</div>
 		</div>
 
-		<script src="js/plugins/layui/layui.js "></script>
-		<script src="js/vue.js "></script>
-		<script src="js/bootstrap.min.js"></script>
+		<script src="../js/plugins/layui/layui.js "></script>
+		<script src="../js/plugins/vue/vue.js "></script>
+		<script src="../js/plugins/bootstrap/bootstrap.min.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 		<script>
