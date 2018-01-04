@@ -12,15 +12,10 @@
 		<link rel="stylesheet" href="../css/plugins/bootstrap/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/plugins/tree/jquery.treegrid.css">
 		<link rel="stylesheet" href="../css/plugins/tree/treeGridStyles.css" />
+		<link rel="stylesheet" href="../css/plugins/metroStyle/metroStyle.css" />
+		<link rel="stylesheet" href="../css/plugins/zTreeStyle/zTreeStyle.css" />
 		<script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script>
-		<script src="../js/plugins/tree/jquery.treegrid.min.js"></script>
-		<script src="../js/plugins/tree/jquery.treegrid.bootstrap3.js"></script>
 
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('.tree').treegrid();
-			});
-		</script>
 	</head>
 	<style>
 		#ggBox {
@@ -34,10 +29,6 @@
 		
 		body {
 			margin: 20px;
-		}
-		
-		[v-cloak] {
-			display: none;
 		}
 		
 		thead tr {
@@ -62,10 +53,6 @@
 			text-align: center;
 		}
 		
-		#test1 {
-			line-height: 96px;
-		}
-		
 		.layui-upload-list {
 			margin-top: -95px;
 		}
@@ -73,9 +60,23 @@
 		.layui-form select {
 			display: block
 		}
+		
+		.btn {
+			margin-right: 10px;
+		}
+		
+		#treeDemo {
+			position: absolute;
+			z-index: 9;
+			width: 300px;
+			height: 200px;
+			border: 1px solid #eee;
+			padding-left: 20px;
+			background-color: #eee;
+		}
 	</style>
 
-	<body v-cloak>
+	<body>
 		<div class="form-inline formHeader">
 			<div class="form-group">
 				<input type="text" class="form-control" id="serchId" placeholder="请输入id进行搜索">
@@ -93,51 +94,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="treegrid-1">
-					<td>酒空间</td>
-					<td style="text-align: left;">这是对酒空间的介绍</td>
-					<td>2017-11-01</td>
-					<td>
-						<button type="button" class="btn btn-primary btn-xs">编辑</button>
-						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
-					</td>
-				</tr>
-				<tr class="treegrid-2 treegrid-parent-1">
-					<td>红酒空间</td>
-					<td style="text-align: left;">这是对红酒空间的介绍</td>
-					<td>2017-11-02</td>
-					<td>
-						<button type="button" class="btn btn-primary btn-xs">编辑</button>
-						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
-					</td>
-				</tr>
-				<tr class="treegrid-3 treegrid-parent-1">
-					<td>白酒空间</td>
-					<td style="text-align: left;">这是对白酒空间的介绍</td>
-					<td>2017-12-12</td>
-					<td>
-						<button type="button" class="btn btn-primary btn-xs">编辑</button>
-						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
-					</td>
-				</tr>
-				<tr class="treegrid-4 treegrid-parent-3">
-					<td>茅台</td>
-					<td style="text-align: left;">这是对茅台酒的介绍描述</td>
-					<td>2017-12-15</td>
-					<td>
-						<button type="button" class="btn btn-primary btn-xs">编辑</button>
-						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
-					</td>
-				</tr>
-				<tr v-for="item in spaceMsgLists">
-					<td>{{item.name}}</td>
-					<td style="text-align: left;">{{item.description}}</td>
-					<td style="text-align: left;">{{item.createTime}}</td>
-					<td>
-						<button type="button" class="btn btn-primary btn-xs">编辑</button>
-						<button type="button" class="btn btn-danger btn-xs" @click="delete">删除</button>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 		<!-- 添加规格型号的弹窗 -->
@@ -155,7 +111,7 @@
 									<div class="layui-inline">
 										<label class="layui-form-label">名称：</label>
 										<div class="layui-input-inline">
-											<input type="text" name="name" autocomplete="off" class="layui-input" placeholder="请输入空间名称" v-model="name">
+											<input type="text" name="name" autocomplete="off" class="layui-input" placeholder="请输入空间名称">
 										</div>
 									</div>
 								</div>
@@ -163,24 +119,21 @@
 									<div class="layui-inline">
 										<label class="layui-form-label">排序：</label>
 										<div class="layui-input-inline">
-											<input type="text" name="sort" autocomplete="off" class="layui-input" placeholder="请进行排序" v-model="sort">
+											<input type="text" name="sort" autocomplete="off" class="layui-input" placeholder="请进行排序">
 										</div>
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">选择父级空间</label>
 									<div class="layui-input-inline">
-										<select name="parentId" style="height:34px;width:90%;border:1px solid #eee;padding-left:10px;" v-model="parentId">
-											<option value="0">请选择省</option>
-											<option value="1" selected="">酒空间</option>
-											<option value="2">中医空间</option>
-										</select>
+										<input type="text" id="parentId" class="layui-input" onclick="selSpaceType()" name="parentId" />
+										<div id="treeDemo" class="ztree"></div>
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">说明描述：</label>
 									<div class="layui-input-block">
-										<input type="text" name="description" lay-verify="title" autocomplete="off" placeholder="请添加说明描述" class="layui-input" v-model="description">
+										<input type="text" name="description" lay-verify="title" autocomplete="off" placeholder="请添加说明描述" class="layui-input">
 									</div>
 								</div>
 
@@ -191,7 +144,7 @@
 										<span id="test1">上传图片</span>
 										<div class="layui-upload-list">
 											<!--<img class="layui-upload-img" id="demo1">-->
-											<input type="file" name="ImgFile" v-model="ImgFile" />
+											<!--<input type="file" name="ImgFile" v-model="ImgFile" />-->
 											<p id="demoText"></p>
 										</div>
 									</div>
@@ -201,163 +154,152 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" @click="postPageData" data-dismiss="modal">保存</button>
+						<button type="button" class="btn btn-primary" onclick="postData()" data-dismiss="modal">保存</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script src="../js/CONSTANT.js"></script>
-		<script src="../js/plugins/layui/layui.js "></script>
-		<script src="../js/plugins/vue/vue.js "></script>
-		<script src="../js/plugins/bootstrap/bootstrap.min.js"></script>
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-		<script>
-	
-			var vm = new Vue({
-				el: "body",
-				data: {
-					name: "",
-					sort: "",
-					parentId: "",
-					description: "",
-					ImgFile: "",
-					spaceMsgLists: []
-				},
-				methods: {
-					addData:function(){
-						this.spaceMsgLists.push({
-							name:this.name,
-							sort:this.sort,
-							parentId:this.parentId,
-							description:this.description,
-							ImgFile:this.ImgFile
-						})
-						name="";
-						sort="";
-						parentId="";
-						description="";
-						ImgFile="";
-					},
-					postPageData: function() {
-						var data = $("#myform").serialize();
-						console.log(data);
-					    $.ajax({    
-		                    type:'post',        
-		                    url:_URL_BASE+'/industrySpace/addIndustrySpace',    
-		                    data:data,    
-		                    cache:false,    
-		                    dataType:'json',    
-		                    success:function(data){   
-		                       console.log(data);
-		                    },  
-						     error : function(data) {  
-						          alert("error");
-						     }      
-		                });
-						
-						/*var formData = new FormData($("#myform")[0]);
-						formData.append("name", "ddd");
-						console.log(formData);
-						$.ajax({
-							url: _URL_BASE + '/industrySpace/addIndustrySpace',
-							type: 'POST',
-							data: new FormData($("#myform")[0]),
-							async: false,
-							cache: false,
-							contentType: false,
-							processData: false,
-							success: function(data) {
-								console.log(data);
-							},
-							error: function(data) {
-								alert("error");
-							}
-						});*/
-
-					},
-					getPageData: function() {
-						axios.get(_URL_BASE + '/industrySpace/getIndustrySpaceList')
-							.then(function(response) {
-								var dataList = response.data.DataList;
-								console.log(dataList);
-								var str = "";
-								for(i in dataList) {
-									var getTime = new Date(dataList[i].createTime);
-									Date.prototype.toLocaleString = function() {
-										var date = new Date(getTime); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-										Y = date.getFullYear() + '-';
-										M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-										D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate() + ' ';
-										return Y + M + D;
-									};
-									formatTime = getTime.toLocaleString();
-									str += "<tr><td>" + dataList[i].name + "</td><td>" + dataList[i].description + "</td><td>" + formatTime + "</td>" + "<td><button type='button' class='btn btn-primary btn-xs'>" + "编辑" + "</button><button type='button' class='btn btn-danger btn-xs del'>" + "删除" + "</button>" + "</td></tr>";
-								}
-								$("tbody").append(str);
-							})
-							.catch(function(response) {
-								console.log(response.data);
-							});
-					},
-					delete: function() {
-						function show_confirm(n) {
-							var r = confirm("确定删除？");
-							if(r == true) {
-								alert(2222);
-								_this.spaceMsgLists.splice(n, 1); 
-							}
-						}
-						show_confirm();
-					}
-				},
-				created: function() {
-					this.getPageData();
-				}
-
-			})
-		</script>
-		<script>
-			/*		layui.use('upload', function() {
-					var $ = layui.jquery,
-						upload = layui.upload;
-					//普通图片上传
-					var uploadInst = upload.render({
-						elem: '#test1',
-						url: '/upload/',
-						before: function(obj) {
-							//预读本地文件示例，不支持ie8
-							obj.preview(function(index, file, result) {
-								$('#demo1').attr('src', result); //图片链接（base64）
-							});
-						},
-						done: function(res) {
-							//如果上传失败
-							if(res.code > 0) {
-								return layer.msg('上传失败');
-							}
-							//上传成功
-						},
-						error: function() {
-							//演示失败状态，并实现重传
-							var demoText = $('#demoText');
-							demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-							demoText.find('.demo-reload').on('click', function() {
-								uploadInst.upload();
-							});
-						}
-					});
-				});*/
-
-			$(function() {
-				$('#serchId').on('change', function() {
-					// console.log($('#filterName').val());
-					$('table tbody tr').hide()
-						.filter(":contains('" + ($('#serchId').val()) + "')")
-						.show();
-				})
-			})
-		</script>
 	</body>
+	<script src="../js/CONSTANT.js"></script>
+	<script src="../js/plugins/layui/layui.js "></script>
+	<script src="../js/plugins/vue/vue.js "></script>
+	<script src="../js/plugins/bootstrap/bootstrap.min.js"></script>
+	<script src="../js/plugins/tree/jquery.treegrid.min.js"></script>
+	<script src="../js/plugins/tree/jquery.treegrid.bootstrap3.js"></script>
+	<script src="../js/plugins/tree/jquery.ztree.core.min.js"></script>
+	<script>
+		var zTreeData = {};
+		var zTreeObj;
+		var setting = {
+			view: {
+				selectedMulti: true, //设置是否能够同时选中多个节点
+				showIcon: true, //设置是否显示节点图标
+				showLine: true, //设置是否显示节点与节点之间的连线
+				showTitle: true, //设置是否显示节点的title提示信息
+			},
+			data: {
+				simpleData: {
+					enable: false, //设置是否启用简单数据格式（zTree支持标准数据格式跟简单数据格式，上面例子中是标准数据格式）
+					idKey: "id", //设置启用简单数据格式时id对应的属性名称
+					pidKey: "pId" //设置启用简单数据格式时parentId对应的属性名称,ztree根据id及pid层级关系构建树结构
+				}
+			},
+			check: {
+				enable: true //设置是否显示checkbox复选框
+			},
+			callback: {
+				onClick: onClick, //定义节点单击事件回调函数
+				/*onRightClick: OnRightClick, //定义节点右键单击事件回调函数
+				beforeRename: beforeRename, //定义节点重新编辑成功前回调函数，一般用于节点编辑时判断输入的节点名称是否合法
+				onDblClick: onDblClick, //定义节点双击事件回调函数
+				onCheck: onCheck //定义节点复选框选中或取消选中事件的回调函数*/
+			},
+			async: {
+				enable: true, //设置启用异步加载
+				type: "get", //异步加载类型:post和get
+				contentType: "application/json", //定义ajax提交参数的参数类型，一般为json格式
+				url: "_URL_BASE + '/industrySpace/getAllTree", //定义数据请求路径
+				autoParam: ["id=id", "name=name"] //定义提交时参数的名称，=号前面标识节点属性，后面标识提交时json数据中参数的名称
+			}
+		};
+
+		function onClick(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			nodes = zTree.getSelectedNodes(),
+			v = "";
+			nodes.sort(function compare(a,b){return a.id-b.id;});
+			for (var i=0, l=nodes.length; i<l; i++) {
+				v += nodes[i].name + ",";
+			}
+			if (v.length > 0 ) v = v.substring(0, v.length-1);
+			var spaceObj = $("#parentId");
+			spaceObj.attr("value", v);
+		}
+
+		//获取列表数据
+		function getIndustrySpaceData() {
+			var data;
+			$.ajax({　　　　　　　
+				url: _URL_BASE + '/industrySpace/getAllTree',
+				data: data,
+				type: 'get',
+				success: function(retData) { //成功回调函数
+					console.log(retData);　　　　　　
+					var dataList = retData.DataList;
+					zTreeData = retData.DataTree.children;
+					console.log(zTreeData);
+					var str = "";
+					for(i in dataList) {
+						var getTime = new Date(dataList[i].createTime);
+						Date.prototype.toLocaleString = function() {
+							var date = new Date(getTime); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+							Y = date.getFullYear() + '-';
+							M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+							D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate() + ' ';
+							return Y + M + D;
+						};
+						formatTime = getTime.toLocaleString();
+						str += "<tr class='treegrid-" + (dataList[i].level + 1) + (dataList[i].level == 0 ? "" : " treegrid-parent-" + (dataList[i].level)) + "'><td>" + dataList[i].name + "</td><td>" + dataList[i].desc + "</td><td>" + formatTime + "</td>" + "<td><button type='button' class='btn btn-primary btn-xs'>" + "编辑" + "</button><button type='button' class='btn btn-danger btn-xs del' onclick=delIndustrySpace('" + dataList[i].id + "')>" + "删除" + "</button>" + "</td></tr>";
+					}
+					$("tbody").append(str);
+					$('.tree').treegrid();
+				},
+				error: function(err) { //失败回调函数
+					alert("获取数据失败");　　　　　　　
+				}　　　　　　
+			});
+		}
+		//提交新增数据
+		function addIndustrySpace() {
+			var data = $("#myform").serialize();
+			console.log(data);
+			$.ajax({
+				type: 'post',
+				url: _URL_BASE + '/industrySpace/addIndustrySpace',
+				data: data,
+				cache: false,
+				dataType: 'json',
+				success: function(retData) {
+					getIndustrySpaceData();
+				},
+				error: function(retData) {
+					alert("error");
+				}
+			});
+		}
+		//删除列表
+		function delIndustrySpace(id) {
+			var data = {};
+			data.id = id;
+			alert(id);
+			$.ajax({　　　　　　　
+				url: _URL_BASE + '/industrySpace/deleteIndustrySpace?id="+data.id+"',
+				　　data: data,
+				　　type: 'post',
+				　　success: function(data) { //成功回调函数
+					console.log(data);
+				},
+				　　error: function(err) { //失败回调函数
+					alert("删除失败");　　　　　　　
+				}　　　　　　
+			});
+		}
+
+		function selSpaceType() {
+			console.log(zTreeData);
+			zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zTreeData);
+
+		}
+		$(function() {
+			getIndustrySpaceData();
+
+			$('#serchId').on('change', function() {
+				$('table tbody tr').hide()
+					.filter(":contains('" + ($('#serchId').val()) + "')")
+					.show();
+			})
+		});
+	</script>
 
 </html>
