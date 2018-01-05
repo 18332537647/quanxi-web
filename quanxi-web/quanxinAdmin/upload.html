@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+		<title>Document</title>
+		<script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+		<script src="../js/CONSTANT.js"></script>
+	</head>
+
+	<body>
+		<span>File</span>
+		<input type="file" id="file" name="ImgFile" size="10" />
+		<input id="uploadbutton" type="button" value="Upload" />
+	</body>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#uploadbutton").click(function() {
+				var filename = $("#file").val();
+				alert(filename);
+				$.ajax({
+					type: "POST",
+					dataType: "jsonp",
+					url: _URL_BASE + '/message/test',
+					enctype: 'multipart/form-data',
+					data: {
+						file: filename
+					},
+					success: function() {
+						alert("Data Uploaded: ");
+					}
+				});
+			});
+		});
+		
+		
+	</script>
+
+</html>
