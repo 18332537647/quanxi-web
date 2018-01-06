@@ -75,7 +75,10 @@ function getIndustrySpaceData() {
 					return Y + M + D + "&nbsp;&nbsp;&nbsp;" + H + ":" + MI + ":" + S;
 				};
 				formatTime = getTime.toLocaleString();
-				str += "<tr class='treegrid-" + (dataList[i].level + 1) + (dataList[i].level == 0 ? "" : " treegrid-parent-" + (dataList[i].level)) + "'><td>" + dataList[i].name + "</td><td>" + dataList[i].desc + "</td><td>" + formatTime + "</td>" + "<td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal' onclick=modifyIndustrySpace('" + dataList[i].id + "','" + dataList[i].name + "')>" + "编辑" + "</button><button type='button' class='btn btn-danger btn-xs del' onclick=delIndustrySpace('" + dataList[i].id + "')>" + "删除" + "</button>" + "</td></tr>";
+				str += "<tr class='treegrid-" + (dataList[i].level + 1) + (dataList[i].level == 0 ? "" : " treegrid-parent-" + (dataList[i].level)) + "'><td>" 
+				+ dataList[i].name + "</td><td>" + dataList[i].desc + "</td><td>" +"<img src="+dataList[i].imgUrl+" />" + "</td><td>" + formatTime + "</td>" +
+				"<td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal' onclick=modifyIndustrySpace('" + dataList[i].id + "','" + dataList[i].name + "')>" 
+				+ "编辑" + "</button><button type='button' class='btn btn-danger btn-xs del' onclick=delIndustrySpace('" + dataList[i].id + "')>" + "删除" + "</button>" + "</td></tr>";
 			}
 			$("tbody").append(str);
 			$('.tree').treegrid();
@@ -86,20 +89,29 @@ function getIndustrySpaceData() {
 	});
 }
 function clickAddButton(){
-	$("#myModalLabel").html("添加控件类型");
+	$("#myModalLabel").html("添加空间类型");
 }
 //提交新增数据
 function addIndustrySpace() {
-	var data = $("#myform").serialize();
-	console.log(data);
+	var formData = new FormData();
+	formData.append("name",$("input[name='name']").val());
+	alert(formData);
+	formData.append("sort",$("input[name='sort']").val());
+	formData.append("parentId",$("input[name='parentId']").val());
+	formData.append("targetId",$("input[name='targetId']").val());
+	formData.append("description",$("input[name='description']").val());
+  formData.append("ImgFile",document.getElementById("ImgFile").files[0]);
+  console.log(formData);
 	$.ajax({
 		type: 'post',
 		url: _URL_BASE + '/industrySpace/addIndustrySpace',
-		data: data,
+		data: formData,
 		cache: false,
+		contentType: false,
+	  processData: false,
 		dataType: 'json',
 		success: function(retData) {
-			
+			alert("成功");
 		},
 		error: function(retData) {
 			alert("提交出错");
@@ -128,8 +140,8 @@ function modifyIndustrySpace(id, name) {
 			$('input[name="targetId"]').val(parentName);
 			$('input[name="description"]').val(description);
 		},
-		　　error: function(err) { //失败回调函数
-			alert("删除失败");　　　　　　　
+		error: function(err) { //失败回调函数
+			alert("获取数据失败");　　　　　　　
 		}　　　　　　
 	});
 	//ReLoad()
@@ -178,7 +190,7 @@ $(function() {
 	})
 });
 
-layui.use('upload', function() {
+/*layui.use('upload', function() {
 	var $ = layui.jquery,
 		upload = layui.upload;
 	//普通图片上传
@@ -209,4 +221,4 @@ layui.use('upload', function() {
 			});
 		}
 	});
-});
+});*/
